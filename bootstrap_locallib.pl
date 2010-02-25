@@ -124,6 +124,7 @@ sub install_core_modules {
         'Module::Install::Bundle::LocalLib',
         'YAML',
         'CPAN',
+	'App::cpanminus',
     );
 
     foreach my $module(@default_libs) {
