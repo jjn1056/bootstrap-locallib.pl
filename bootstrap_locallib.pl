@@ -121,14 +121,13 @@ sub install_core_modules {
     ## Install these dists even if they are already installed somewhere
     my @default_libs = (
         'Module::Install',
-        'Module::Install::Bundle::LocalLib',
         'YAML',
         'CPAN',
 	'App::cpanminus',
     );
 
     foreach my $module(@default_libs) {
-        my $cmd = qq["$whichperl" -I$lib -Mlocal::lib="--self-contained","$target" -e "use CPAN; CPAN::force('install',$module)"];
+        my $cmd = qq["$whichperl" -I$lib -Mlocal::lib="$target" -e "use CPAN; CPAN::force('install',$module)"];
         print "doing $cmd;\n";
         system($cmd);
     }
