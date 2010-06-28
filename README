@@ -6,6 +6,7 @@ SYNOPSIS
 
       Option Summary
 
+        "t|target=s" => \$target,
         "b|basedir=s" => \$basedir,
         "a|affix=s" => \$affix,
         "w|whichperl=s" => \$whichperl,

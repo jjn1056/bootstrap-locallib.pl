@@ -10,6 +10,7 @@ bootstrap-locallib.pl, version 0.02
 
   Option Summary
 
+    "t|target=s" => \$target,
     "b|basedir=s" => \$basedir,
     "a|affix=s" => \$affix,
     "w|whichperl=s" => \$whichperl,
@@ -74,7 +75,10 @@ my $basedir = $ENV{LOCALLIB_BASEDIR} || $ENV{HOME};
 my $affix = $ENV{LOCALLIB_AFFIX} || 'local-lib5';
 my $whichperl = $ENV{LOCALLIB_WHICHPERL} || $^X;
 my $env_helper = $ENV{LOCALLIB_LOCAL_ENV_HELPER} || '';
+my $target = $ENV{LOCALLIB_TARGET} || '';
+
 my $result = GetOptions(
+    "t|target=s" => \$target,
     "b|basedir=s" => \$basedir,
     "a|affix=s" => \$affix,
     "w|whichperl=s" => \$whichperl,
@@ -83,7 +87,11 @@ my $result = GetOptions(
 )or die pod2usage;
 pod2usage(0) if $help;
 
-my $target = Cwd::realpath(File::Spec->catdir($basedir,$affix));
+unless($target) {
+    $target = Cwd::realpath(File::Spec->catdir($basedir,$affix));
+}
+
+$target = Cwd::abs_path($target);
 $env_helper = File::Spec->catdir($target, 'bin', 'localenv')
   unless $env_helper;
 
