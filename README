@@ -1,0 +1,53 @@
+NAME
+    bootstrap-locallib.pl, version 0.02
+
+SYNOPSIS
+      perl [PATH]/bootstrap-locallib.pl OPTIONS
+
+      Option Summary
+
+        "b|basedir=s" => \$basedir,
+        "a|affix=s" => \$affix,
+        "w|whichperl=s" => \$whichperl,
+        "d|local_env_helper=s" => \$env_helper,
+        'h|help'       => \$help
+
+DESCRIPTION
+    Script to make it easier to install and used the excellent local::lib
+    perl module. For more information about local::lib please see:
+
+        http://search.cpan.org/dist/local-lib
+
+    This tool is designed to make it easier to install and manage multiple
+    local::lib setups. However, the tool itself is relatively easy to setup,
+    you may wish to read and follow the instructions linked about.
+
+    This script performs two services: 1) provides a single commandline
+    script which can be used to install multiple local::libs, 2) provides a
+    helper script which you can use to initialize an installed local::lib
+    for a given command
+
+EXAMPLES
+    ALl examples assume you have the file 'bootstrap-locallib.pl' downloaded
+    into a directory in your $PATH, and that it's been set to executable.
+
+    Deploy a local::lib to $HOME/local-lib5 for the default interpreter
+
+        bootstrap-locallib.pl
+
+    Deploy a local::lib to $HOME/myapp-local-lib5
+
+        bootstrap-locallib.pl affix="myapp-local-lib5"
+
+    Deploy a local::lib to /usr/local/lib/myapp-local-lib6
+
+        bootstrap-locallib.pl basedir="/usr/local/lib" affix="myapp-local-lib5"
+
+    Invoke helper created in the above example to initialize local::lib for
+    the current shell.
+
+        /usr/local/lib/bin/localenv perl -V
+
+    You may wish to invoke the helper from your shell .profile or create an
+    alias to assist you further.
+
