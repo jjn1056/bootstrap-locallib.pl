@@ -10,9 +10,11 @@ bootstrap-locallib.pl, version 0.02
 
   Option Summary
 
-    "b|basedir=s" = Base directory where local::libs are created
-    "a|affix=s" = The $basedir subdirectory where a local::lib is created
-    "w|whichperl=s" = Path of the perl interpreter used to create local::lib
+    "b|basedir=s" => \$basedir,
+    "a|affix=s" => \$affix,
+    "w|whichperl=s" => \$whichperl,
+    "d|local_env_helper=s" => \$env_helper,
+    'h|help'       => \$help
 
 =head1 DESCRIPTION
 
@@ -82,7 +84,7 @@ my $result = GetOptions(
 pod2usage(0) if $help;
 
 my $target = Cwd::realpath(File::Spec->catdir($basedir,$affix));
-my $env_helper = File::Spec->catdir($target, 'bin', 'localenv')
+$env_helper = File::Spec->catdir($target, 'bin', 'localenv')
   unless $env_helper;
 
 print "Deploying local::lib to $target\n";
