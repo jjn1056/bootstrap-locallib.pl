@@ -146,7 +146,6 @@ sub install_locallib_env {
 
 use strict;
 use warnings;
-use Carp;
 use lib '$lib';
 use local::lib '$target';
 
