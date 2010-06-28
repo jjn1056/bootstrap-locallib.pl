@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-bootstrap-locallib.pl, version 0.01
+bootstrap-locallib.pl, version 0.02
 
 =head1 SYNOPSIS
 
@@ -65,21 +65,25 @@ use Getopt::Long;
 use File::Spec;
 use Pod::Usage;
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 my $help;
 my $basedir = $ENV{LOCALLIB_BASEDIR} || $ENV{HOME};
 my $affix = $ENV{LOCALLIB_AFFIX} || 'local-lib5';
 my $whichperl = $ENV{LOCALLIB_WHICHPERL} || $^X;
+my $env_helper = $ENV{LOCALLIB_LOCAL_ENV_HELPER} || '';
 my $result = GetOptions(
     "b|basedir=s" => \$basedir,
     "a|affix=s" => \$affix,
     "w|whichperl=s" => \$whichperl,
+    "d|local_env_helper=s" => \$env_helper,
     'h|help'       => \$help
 )or die pod2usage;
 pod2usage(0) if $help;
 
 my $target = Cwd::realpath(File::Spec->catdir($basedir,$affix));
+my $env_helper = File::Spec->catdir($target, 'bin', 'localenv')
+  unless $env_helper;
 
 print "Deploying local::lib to $target\n";
 &install_locallib($target, $whichperl);
@@ -90,7 +94,7 @@ print "Deploying core developer modules...\n";
 print "Done!\n";
 
 print "Creating localenv script...\n";
-&install_locallib_env($target, $whichperl);
+&install_locallib_env($target, $env_helper, $whichperl);
 print "Done!";
 
 
@@ -134,12 +138,9 @@ sub install_core_modules {
 }
 
 sub install_locallib_env {
-    my ($target, $whichperl) = @_;
-    my $bindir = File::Spec->catdir($target, 'bin');
-    my $bin = File::Spec->catdir($target, 'bin', 'localenv');
+    my ($target, $env_helper, $whichperl) = @_;
     my $lib = File::Spec->catdir($target, 'lib', 'perl5');
-
-    open(my $fh, '>', $bin) or die "Can't open $bin";
+    open(my $fh, '>', $env_helper) or die "Can't open $env_helper";
 
     print $fh <<"END";
 #!$whichperl
@@ -161,7 +162,7 @@ END
     close($fh);
 
     my $mode = '0755';
-    chmod oct($mode), $bin;
-    return $bin;
+    chmod oct($mode), $env_helper;
+    return $env_helper;
 } 
 
