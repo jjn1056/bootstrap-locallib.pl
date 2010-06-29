@@ -49,10 +49,14 @@ Deploy a L<local::lib> to /usr/local/lib/myapp-local-lib6
 
     bootstrap-locallib.pl basedir="/usr/local/lib" affix="myapp-local-lib5"
 
+Deploy a L<local::lib> to ./local
+
+    bootstrap-locallib.pl --target ./local
+
 Invoke helper created in the above example to initialize L<local::lib> for the
 current shell.
 
-    /usr/local/lib/bin/localenv perl -V
+    ./local/bin/env perl -V
 
 You may wish to invoke the helper from your shell .profile or create an alias
 to assist you further.
@@ -92,7 +96,7 @@ unless($target) {
 }
 
 $target = Cwd::abs_path($target);
-$env_helper = File::Spec->catdir($target, 'bin', 'localenv')
+$env_helper = File::Spec->catdir($target, 'bin', 'env')
   unless $env_helper;
 
 print "Deploying local::lib to $target\n";
@@ -103,7 +107,7 @@ print "Deploying core developer modules...\n";
 &install_core_modules($target,$whichperl);
 print "Done!\n";
 
-print "Creating localenv script...\n";
+print "Creating env script...\n";
 &install_locallib_env($target, $env_helper, $whichperl);
 print "Done!";
 
@@ -134,10 +138,14 @@ sub install_core_modules {
 
     ## Install these dists even if they are already installed somewhere
     my @default_libs = (
+        'ExtUtils::MakeMaker',
+        'ExtUtils::Install',
         'Module::Install',
+        'Module::Build',
         'YAML',
         'CPAN',
-	'App::cpanminus',
+        'App::Ack',
+	    'App::cpanminus',
     );
 
     foreach my $module(@default_libs) {
@@ -162,7 +170,7 @@ use local::lib '$target';
 
 unless ( caller ) {
     if ( \@ARGV ) {
-        exec \@ARGV;
+        exec \@args;
     }
 }
 

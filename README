@@ -44,10 +44,14 @@ EXAMPLES
 
         bootstrap-locallib.pl basedir="/usr/local/lib" affix="myapp-local-lib5"
 
+    Deploy a local::lib to ./local
+
+        bootstrap-locallib.pl --target ./local
+
     Invoke helper created in the above example to initialize local::lib for
     the current shell.
 
-        /usr/local/lib/bin/localenv perl -V
+        ./local/bin/env perl -V
 
     You may wish to invoke the helper from your shell .profile or create an
     alias to assist you further.
