@@ -111,8 +111,6 @@ print "Creating env script...\n";
 &install_locallib_env($target, $env_helper, $whichperl);
 print "Done!";
 
-
-
 sub install_locallib {
     my ($target, $whichperl) = @_;
     my $mod = CPAN::Shell->expand(Module => "local::lib");
@@ -145,7 +143,7 @@ sub install_core_modules {
         'YAML',
         'CPAN',
         'App::Ack',
-	    'App::cpanminus',
+	'App::cpanminus',
     );
 
     foreach my $module(@default_libs) {
@@ -170,7 +168,7 @@ use local::lib '$target';
 
 unless ( caller ) {
     if ( \@ARGV ) {
-        exec \@args;
+        exec \@ARGV;
     }
 }
 
