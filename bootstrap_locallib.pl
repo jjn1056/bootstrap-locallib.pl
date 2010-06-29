@@ -58,8 +58,10 @@ current shell.
 
     ./local/bin/env perl -V
 
-You may wish to invoke the helper from your shell .profile or create an alias
-to assist you further.
+
+Run straight from the Internet.
+
+ curl -L http://github.com/jjn1056/bootstrap-locallib.pl/raw/master/boop_locallib.pl | perl - --target local
 
 =cut
 
