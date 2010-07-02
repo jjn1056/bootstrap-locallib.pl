@@ -98,7 +98,7 @@ unless($target) {
 }
 
 $target = Cwd::abs_path($target);
-$env_helper = File::Spec->catdir($target, 'bin', 'env')
+$env_helper = File::Spec->catdir($target, 'bin', 'localenv')
   unless $env_helper;
 
 print "Deploying local::lib to $target\n";
