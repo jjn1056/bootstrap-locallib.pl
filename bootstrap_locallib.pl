@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-bootstrap-locallib.pl, version 0.02
+bootstrap-locallib.pl, version 0.03
 
 =head1 SYNOPSIS
 
@@ -61,7 +61,7 @@ current shell.
 
 Run straight from the Internet.
 
- curl -L http://github.com/jjn1056/bootstrap-locallib.pl/raw/master/boop_locallib.pl | perl - --target local
+    curl -L http://github.com/jjn1056/bootstrap-locallib.pl/blob/master/bootstrap_locallib.pl | perl - --target local
 
 =cut
 
@@ -74,7 +74,7 @@ use Getopt::Long;
 use File::Spec;
 use Pod::Usage;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 my $help;
 my $basedir = $ENV{LOCALLIB_BASEDIR} || $ENV{HOME};
@@ -98,7 +98,7 @@ unless($target) {
 }
 
 $target = Cwd::abs_path($target);
-$env_helper = File::Spec->catdir($target, 'bin', 'env')
+$env_helper = File::Spec->catdir($target, 'bin', 'localenv')
   unless $env_helper;
 
 print "Deploying local::lib to $target\n";

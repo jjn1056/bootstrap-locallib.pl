@@ -1,5 +1,5 @@
 NAME
-    bootstrap-locallib.pl, version 0.02
+    bootstrap-locallib.pl, version 0.03
 
 SYNOPSIS
       perl [PATH]/bootstrap-locallib.pl OPTIONS
@@ -55,5 +55,5 @@ EXAMPLES
 
     Run straight from the Internet.
 
-     curl -L http://github.com/jjn1056/bootstrap-locallib.pl/raw/master/boop_locallib.pl | perl - --target local
+        curl -L http://github.com/jjn1056/bootstrap-locallib.pl/blob/master/bootstrap_locallib.pl | perl - --target local
 
